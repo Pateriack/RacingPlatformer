@@ -18,7 +18,7 @@ jobs:
         id: build
         uses: manleydev/build-godot-action@v1.5.0
         with:
-          name: example
+          name: RacingPlatformer
           preset: ${{ matrix.platform }}
           debugMode: "true"
       - name: Upload Artifact
