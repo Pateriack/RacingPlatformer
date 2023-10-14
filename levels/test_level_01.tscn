@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://i5ojuonghjnc"]
+
+[ext_resource type="PackedScene" uid="uid://xu65t47swjlo" path="res://characters/test_character.tscn" id="1_81htl"]
+[ext_resource type="PackedScene" uid="uid://bn4aqh73a8jh" path="res://camera/camera.tscn" id="2_g604t"]
+
+[sub_resource type="Curve3D" id="Curve3D_ffe2s"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -8.01464, 0, -0.00691673, -1.1399, 0, 0.0186096, 1.1399, 0, -0.0186096, -2.01171, 0, -0.00691673, -1.36711, 0, 0.0625892, 1.36711, 0, -0.0625892, 0.986093, 0, -3.01938, -0.920012, 0, -0.0180361, 0.920012, 0, 0.0180361, 5.00271, 0, -3.02671, -0.831759, 0, -0.0405984, 0.831759, 0, 0.0405984, 8.00784, 0, -0.0142465, -0.259319, -0.00362965, 8.52374e-05, 0.259319, 0.00362965, -8.52374e-05, 9.98975, 0, -0.0144895, -0.771216, 0.00300467, 0, 0.771216, -0.00300467, 0, 12.0769, 0.933786, -0.00280762, -0.375284, 0.00529099, 0, 0.375284, -0.00529099, 0, 15.9763, 0.955775, -0.026123, -0.359873, 0, 0, 0, 0, 0, 17.997, -0.00297225, -0.0145264, -0.346029, -0.00636721, -9.02824e-05, 0.346029, 0.00636721, 9.02824e-05, 19.9693, 0, -0.0377515, 0, 0, 0, 0, 0, 0, 22.0745, 0.889809, -0.0377197),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 11
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jn36l"]
+albedo_color = Color(0.34902, 0.34902, 0.34902, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_kbc3f"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 12.0435, 1.85293, 0.026001, -0.228277, -0.0445056, 0.00383703, 0.228277, 0.0445056, -0.00383703, 14.6314, 1.88461, 0.015625, -1.1846, 8.91685e-05, -0.0271693, 1.1846, -8.91685e-05, 0.0271693, 17.7196, 2.8829, 0.015625, 0.0582428, 0, 2.33191, -0.0582428, 0, -2.33191, 20.8022, 2.88293, -3.57177, 2.31677, 0, -0.0631847, -2.31677, 0, 0.0631847, 17.766, 2.88293, -6.67894, 0, 0, 0, 0, 0, 0, 12.0093, 2.88293, -6.68462),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+up_vector_enabled = false
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jmkyi"]
+size = Vector3(100, 1, 100)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_ffe2s")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00938106, -0.0658233, 0.00233424)
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+polygon = PackedVector2Array(-0.352923, -0.0067306, -0.210153, 0.0745688, 0.212207, 0.0715944, 0.358942, 0.00120101)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_jn36l")
+
+[node name="Path3D2" type="Path3D" parent="."]
+curve = SubResource("Curve3D_kbc3f")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Path3D2"]
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+polygon = PackedVector2Array(-0.352923, -0.0067306, -0.210153, 0.0745688, 0.212207, 0.0715944, 0.358942, 0.00120101)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.5
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+material = SubResource("StandardMaterial3D_jn36l")
+
+[node name="Character" parent="." node_paths=PackedStringArray("current_path") instance=ExtResource("1_81htl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0992775, 0.0050503, 7.79629e-05)
+current_path = NodePath("../Path3D")
+bounce_squish_vertical = 0.65
+
+[node name="Camera" parent="." node_paths=PackedStringArray("follow_node") instance=ExtResource("2_g604t")]
+transform = Transform3D(1, 0.000700647, -0.000708668, -0.000701052, 1, -0.000577505, 0.000708268, 0.000577996, 1, -0.0207415, 2.38419e-07, 0.000905037)
+follow_node = NodePath("../Character")
+distance = 5.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.286575, 0.958058, 0, -0.958058, 0.286575, 0, 3.22999, 0)
+shadow_enabled = true
+
+[node name="FallZone" type="Area3D" parent="."]
+collision_layer = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.66187, 0)
+shape = SubResource("BoxShape3D_jmkyi")
+
+[connection signal="body_entered" from="FallZone" to="Character" method="_on_fall_zone_body_entered"]
